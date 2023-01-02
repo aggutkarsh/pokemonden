@@ -1,0 +1,24 @@
+{
+  "eggGroup": [
+    {
+      "name": "monster",
+      "url": "https://pokeapi.co/api/v2/egg-group/1/"
+    },
+    {
+      "name": "dragon",
+      "url": "https://pokeapi.co/api/v2/egg-group/14/"
+    }
+  ],
+  "evolutionChain": {
+    "url": "https://pokeapi.co/api/v2/evolution-chain/2/"
+  },
+  "flavorTextEntries": [
+    {
+      "flavorText": "Spits fire that\nis hot enough to\nmelt boulders.\fKnown to cause\nforest fires\nunintentionally."
+    },
+    {
+      "flavorText": "Spits fire that\nis hot enough to\nmelt boulders.\fKnown to cause\nforest fires\nunintentionally."
+    }
+  ],
+  "id": 6
+}
