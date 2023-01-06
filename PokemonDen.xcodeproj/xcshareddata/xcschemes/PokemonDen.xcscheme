@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ACD1593E2959A4D9000926F6"
-               BuildableName = "Poke&#x301;monDen.app"
-               BlueprintName = "Poke&#x301;monDen"
-               ReferencedContainer = "container:Poke&#x301;monDen.xcodeproj">
+               BlueprintIdentifier = "AC59C6372968682800011886"
+               BuildableName = "PokemonDen.app"
+               BlueprintName = "PokemonDen"
+               ReferencedContainer = "container:PokemonDen.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,20 +33,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ACD1594E2959A4DB000926F6"
-               BuildableName = "Poke&#x301;monDenTests.xctest"
-               BlueprintName = "Poke&#x301;monDenTests"
-               ReferencedContainer = "container:Poke&#x301;monDen.xcodeproj">
+               BlueprintIdentifier = "AC59C6472968682A00011886"
+               BuildableName = "PokemonDenTests.xctest"
+               BlueprintName = "PokemonDenTests"
+               ReferencedContainer = "container:PokemonDen.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ACD159582959A4DB000926F6"
-               BuildableName = "Poke&#x301;monDenUITests.xctest"
-               BlueprintName = "Poke&#x301;monDenUITests"
-               ReferencedContainer = "container:Poke&#x301;monDen.xcodeproj">
+               BlueprintIdentifier = "AC59C6512968682A00011886"
+               BuildableName = "PokemonDenUITests.xctest"
+               BlueprintName = "PokemonDenUITests"
+               ReferencedContainer = "container:PokemonDen.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -65,10 +65,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ACD1593E2959A4D9000926F6"
-            BuildableName = "Poke&#x301;monDen.app"
-            BlueprintName = "Poke&#x301;monDen"
-            ReferencedContainer = "container:Poke&#x301;monDen.xcodeproj">
+            BlueprintIdentifier = "AC59C6372968682800011886"
+            BuildableName = "PokemonDen.app"
+            BlueprintName = "PokemonDen"
+            ReferencedContainer = "container:PokemonDen.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -82,10 +82,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ACD1593E2959A4D9000926F6"
-            BuildableName = "Poke&#x301;monDen.app"
-            BlueprintName = "Poke&#x301;monDen"
-            ReferencedContainer = "container:Poke&#x301;monDen.xcodeproj">
+            BlueprintIdentifier = "AC59C6372968682800011886"
+            BuildableName = "PokemonDen.app"
+            BlueprintName = "PokemonDen"
+            ReferencedContainer = "container:PokemonDen.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

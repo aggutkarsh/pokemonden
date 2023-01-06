@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import PokémonDen
+@testable import PokemonDen
 
 class HomeUseCaseTests: XCTestCase {
 

@@ -7,7 +7,7 @@
 
 import XCTest
 import ViewInspector
-@testable import PokémonDen
+@testable import PokemonDen
 
 class PokemonTypeViewTests: XCTestCase {
     

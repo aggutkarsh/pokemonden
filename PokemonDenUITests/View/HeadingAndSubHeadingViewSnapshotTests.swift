@@ -7,7 +7,7 @@
 
 import XCTest
 import SwiftUI
-@testable import PokémonDen
+@testable import PokemonDen
 import SnapshotTesting
 
 class HeadingAndSubHeadingViewSnapshotTests: XCTestCase {

@@ -1,13 +1,13 @@
 //
-//  Poke_monDenUITests.swift
-//  PokémonDenUITests
+//  PokemonDenUITests.swift
+//  PokemonDenUITests
 //
-//  Created by Utkarsh Agrawal on 26/12/22.
+//  Created by Utkarsh Agrawal on 06/01/23.
 //
 
 import XCTest
 
-class Poke_monDenUITests: XCTestCase {
+class PokemonDenUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

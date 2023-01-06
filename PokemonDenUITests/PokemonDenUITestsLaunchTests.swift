@@ -1,13 +1,13 @@
 //
-//  Poke_monDenUITestsLaunchTests.swift
-//  PokémonDenUITests
+//  PokemonDenUITestsLaunchTests.swift
+//  PokemonDenUITests
 //
-//  Created by Utkarsh Agrawal on 26/12/22.
+//  Created by Utkarsh Agrawal on 06/01/23.
 //
 
 import XCTest
 
-class Poke_monDenUITestsLaunchTests: XCTestCase {
+class PokemonDenUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
