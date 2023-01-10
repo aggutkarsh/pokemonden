@@ -23,7 +23,7 @@ struct PokemonDetailDataModel : BaseDataModel {
     let types: [TypeElement]
     let weight: Int
     
-    static var sampleData:PokemonDetailDataModel =  Bundle.main.decode(file: "pokemonDetails.json")
+    static let sampleData:PokemonDetailDataModel =  Bundle.main.decode(file: "pokemonDetails.json")
 }
 
 // MARK: - Ability

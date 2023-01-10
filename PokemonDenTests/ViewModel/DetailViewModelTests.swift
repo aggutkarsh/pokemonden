@@ -16,7 +16,7 @@ class DetailViewModelTests: XCTestCase {
     var mockRepo: MockRepository!
     
     override func setUp() {
-        mockRepo = MockRepository(service: Services(client: RESTClient()), mapper: PokemonDescMapper())
+        mockRepo = MockRepository(service: PokemonService(client: RESTClient()))
         useCase = DetailUseCase(repo: mockRepo)
         viewModel = DetailViewModel(useCase: useCase)
     }

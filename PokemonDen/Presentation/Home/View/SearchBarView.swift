@@ -33,6 +33,6 @@ struct SearchBarView_Previews: PreviewProvider {
         SearchBarView()
             .previewLayout(.sizeThatFits)
             .padding()
-            .environmentObject(HomeViewModel(useCase: HomeUseCase(repo: Repository(service: Services(client: RESTClient()), mapper: ListOfPokemonMapper()))))
+            .environmentObject(HomeViewModel(useCase: HomeUseCase(repo: PokemonRepository(service: PokemonService(client: RESTClient())))))
     }
 }

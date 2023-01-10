@@ -11,7 +11,7 @@ import SwiftUI
 struct PokemonDenApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView(homeVM: HomeViewModel(useCase: HomeUseCase(repo: Repository(service: Services(client: RESTClient()), mapper: ListOfPokemonMapper()))))
+            HomeView(homeVM: HomeViewModel(useCase: HomeUseCase(repo: PokemonRepository(service: PokemonService(client: RESTClient(sessionDelegate: SSLPinningManager(isSSLPinningEnabled: true)))))))
         }
     }
 }

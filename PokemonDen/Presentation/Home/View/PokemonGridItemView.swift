@@ -55,7 +55,7 @@ struct PokemonGridItemView_Previews: PreviewProvider {
  
     static var previews: some View {
         PokemonGridItemView(pokemonDetail: sampleData, pokemon: Pokemon.samplePokemon)
-            .environmentObject(HomeViewModel(useCase: HomeUseCase(repo: Repository(service: Services(client: RESTClient()), mapper: ListOfPokemonMapper()))))
+            .environmentObject(HomeViewModel(useCase: HomeUseCase(repo: PokemonRepository(service: PokemonService(client: RESTClient(sessionDelegate: SSLPinningManager(isSSLPinningEnabled: true)))))))
             .previewLayout(.sizeThatFits)
             .padding()
     }

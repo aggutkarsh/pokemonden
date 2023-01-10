@@ -8,8 +8,8 @@
 import Foundation
 
 protocol ServiceInterface {
-    func getListOfPokemon(_ completion:@escaping (ListOfPokemonDataModel) -> Void, failure:@escaping(Error) -> Void)
-    func getPokemonDetails(id: Int, _ completion:@escaping (PokemonDetailDataModel) -> Void, failure:@escaping(Error) -> Void)
-    func getPokemonDesc(id: Int, _ completion:@escaping (PokemonDescDataModel) -> Void, failure:@escaping(Error) -> Void)
-    func getPokemonImageData(_ pokemonId: Int, completion:@escaping (Data) -> Void, failure:@escaping(Error) -> Void)
+    func getListOfPokemon(_ completion:@escaping (Swift.Result<ListOfPokemonDataModel, Error>) -> Void)
+    func getPokemonDetails(id: Int, _ completion:@escaping (Swift.Result<PokemonDetailDataModel, Error>) -> Void)
+    func getPokemonDesc(id: Int, _ completion:@escaping (Swift.Result<PokemonDescDataModel, Error>) -> Void)
+    func getPokemonImageData(_ pokemonId: Int, completion:@escaping (Swift.Result<Data, Error>) -> Void)
 }

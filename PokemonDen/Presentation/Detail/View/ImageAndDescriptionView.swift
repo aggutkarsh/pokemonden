@@ -52,7 +52,7 @@ struct ImageAndDescriptionView_Previews: PreviewProvider {
     static var sampleData:PokemonDetailDomainModel =  Bundle.main.decode(file: "pokemonDetails.json")
     static var previews: some View {
         ImageAndDescriptionView(pokemonDetail: sampleData)
-            .environmentObject(DetailViewModel(useCase: DetailUseCase(repo: Repository(service: Services(client: RESTClient()), mapper: PokemonDetailMapper()))))
+            .environmentObject(DetailViewModel(useCase: DetailUseCase(repo: PokemonRepository(service: PokemonService(client: RESTClient(sessionDelegate: SSLPinningManager(isSSLPinningEnabled: true)))))))
             .previewLayout(.sizeThatFits)
             .padding()
     }

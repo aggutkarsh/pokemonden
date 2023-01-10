@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct DetailView: View {
-    @ObservedObject var detailVM = DetailViewModel(useCase: DetailUseCase(repo: Repository(service: Services(client: RESTClient()), mapper: PokemonDetailMapper())))
+    @ObservedObject var detailVM = DetailViewModel(useCase: DetailUseCase(repo: PokemonRepository(service: PokemonService(client: RESTClient()))))
     
     let pokemonDetail: PokemonDetailDomainModel
-    let listOfPokemon: [Pokemon]
-    let listOfPokemonDetail: [PokemonDetailDomainModel]
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
@@ -75,6 +73,6 @@ struct DetailView: View {
 struct DetailView_Previews: PreviewProvider {
     static var sampleData:PokemonDetailDomainModel =  Bundle.main.decode(file: "pokemonDetails.json")
     static var previews: some View {
-        DetailView(pokemonDetail: sampleData, listOfPokemon: [Pokemon.samplePokemon], listOfPokemonDetail: [sampleData])
+        DetailView(pokemonDetail: sampleData)
     }
 }

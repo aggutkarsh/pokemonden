@@ -9,26 +9,25 @@ import XCTest
 @testable import PokemonDen
 
 struct MockRepository: RepositoryInferface {
-    var service: ServiceInterface
-    var mapper: BaseMappper
+    let service: ServiceInterface
     
-    func getPokemonDetails(id: Int, _ completion: @escaping (PokemonDetailDomainModel?) -> Void, failure: @escaping (Error) -> Void) {
+    func getPokemonDetails(id: Int, mapper: BaseMappper, _ completion: @escaping (Swift.Result<PokemonDetailDomainModel?, Error>) -> Void) {
         let response:PokemonDetailDomainModel =  Bundle.main.decode(file: "pokemonDetails.json")
-        completion(response)
+        completion(.success(response))
     }
     
-    func getPokemonDesc(id: Int, _ completion: @escaping (PokemonDescDomainModel?) -> Void, failure: @escaping (Error) -> Void) {
+    func getPokemonDesc(id: Int, mapper: BaseMappper, _ completion: @escaping (Swift.Result<PokemonDescDomainModel?, Error>) -> Void) {
         let response:PokemonDescDomainModel =  Bundle.main.decode(file: "pokemonSpecies.json")
-        completion(response)
+        completion(.success(response))
     }
     
-    func getPokemonImageData(_ pokemonId: Int, completion: @escaping (Data) -> Void, failure: @escaping (Error) -> Void) {
+    func getPokemonImageData(_ pokemonId: Int, completion: @escaping (Swift.Result<Data, Error>) -> Void) {
         let response:Data =  Data()
-        completion(response)
+        completion(.success(response))
     }
     
-    func getListOfPokemon(_ completion: @escaping (ListOfPokemonDomainModel?) -> Void, failure:@escaping(Error) -> Void) {
+    func getListOfPokemon(mapper: BaseMappper, _ completion: @escaping (Swift.Result<ListOfPokemonDomainModel?, Error>) -> Void) {
         let response:ListOfPokemonDomainModel =  Bundle.main.decode(file: "pokemonList.json")
-        completion(response)
+        completion(.success(response))
     }
 }

@@ -16,7 +16,7 @@ class HomeViewModelTests: XCTestCase {
     var mockRepo: MockRepository!
     
     override func setUp() {
-        mockRepo = MockRepository(service: Services(client: RESTClient()), mapper: ListOfPokemonMapper())
+        mockRepo = MockRepository(service: PokemonService(client: RESTClient()))
         useCase = HomeUseCase(repo: mockRepo)
         viewModel = HomeViewModel(useCase: useCase)
     }

@@ -14,7 +14,7 @@ class HomeUseCaseTests: XCTestCase {
     var mockRepo: MockRepository!
     
     override func setUp() {
-        mockRepo = MockRepository(service: Services(client: RESTClient()), mapper: ListOfPokemonMapper())
+        mockRepo = MockRepository(service: PokemonService(client: RESTClient()))
         useCase = HomeUseCase(repo: mockRepo)
     }
     
@@ -22,8 +22,13 @@ class HomeUseCaseTests: XCTestCase {
         var response: ListOfPokemonDomainModel?
             
         // ACT
-        useCase.getListOfPokemon({ data in
-            response = data
+        useCase.getListOfPokemon({ result in
+            switch result {
+                case .success(let data):
+                    response = data
+                case .failure(_):
+                    response = nil
+            }
         })
             
         // ASSERT
@@ -35,12 +40,14 @@ class HomeUseCaseTests: XCTestCase {
     func test_getDetails() {
         var response: PokemonDetailDomainModel?
         
-        // ARRANGE
-        mockRepo.mapper = PokemonDetailMapper()
-            
         // ACT
-        useCase.getDetails(id: 6, { data in
-            response = data
+        useCase.getDetails(id: 6, { result in
+            switch result {
+                case .success(let data):
+                    response = data
+                case .failure(_):
+                    response = nil
+            }
         })
             
         // ASSERT

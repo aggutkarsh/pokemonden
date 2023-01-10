@@ -8,38 +8,31 @@
 import Foundation
 
 class DetailUseCase {
-    var repository: RepositoryInferface
+    let repository: RepositoryInferface
     
     init(repo:RepositoryInferface) {
         self.repository = repo
     }
-
-    func getDetails(id:Int, _ completion: @escaping (PokemonDetailDomainModel?) -> Void) {
-        self.repository.mapper = PokemonDetailMapper()
-        
-        repository.getPokemonDetails(id: id) { pokemonDetail in
-            
-            completion(pokemonDetail)
-        } failure: { error in
-            print(error)
+    
+    func getPokemonDesc(id:Int, _ completion: @escaping (Swift.Result<PokemonDescDomainModel?, Error>) -> Void) {
+        repository.getPokemonDesc(id: id, mapper: PokemonDescMapper()) { result in
+            switch result {
+                case .success(let pokemonDesc):
+                    completion(.success(pokemonDesc))
+                case .failure(let error):
+                    completion(.failure(error))
+            }
         }
     }
     
-    func getPokemonDesc(id:Int, _ completion: @escaping (PokemonDescDomainModel?) -> Void) {
-        self.repository.mapper = PokemonDescMapper()
-        
-        repository.getPokemonDesc(id: id) { pokemonDesc in
-            completion(pokemonDesc)
-        } failure: { error in
-            print(error)
-        }
-    }
-    
-    func getPokemonImageData(pokemonId: Int, completion: @escaping (Data) -> Void ) {
-        repository.getPokemonImageData(pokemonId) { imageData in
-            completion(imageData)
-        } failure: { error in
-            print(error)
+    func getPokemonImageData(pokemonId: Int, completion: @escaping (Swift.Result<Data, Error>) -> Void ) {
+        repository.getPokemonImageData(pokemonId) { result in
+            switch result {
+                case .success(let imageData):
+                    completion(.success(imageData))
+                case .failure(let error):
+                    completion(.failure(error))
+            }
         }
     }
 }

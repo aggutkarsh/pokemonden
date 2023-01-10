@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import ViewInspector
+// import ViewInspector
 @testable import PokemonDen
 
 class PokemonTypeViewTests: XCTestCase {

@@ -12,15 +12,21 @@ class DetailViewModel: ObservableObject {
     let useCase: DetailUseCase?
     
     @Published var pokemonDesc: PokemonDescDomainModel?
+    @Published var errorText = ""
     
     init(useCase: DetailUseCase) {
         self.useCase = useCase
     }
     
     func getPokemonDesc(pokemonIndex: Int) {
-        useCase?.getPokemonDesc(id: pokemonIndex, { [weak self] desc in
-            DispatchQueue.main.async {
-                self?.pokemonDesc = desc
+        useCase?.getPokemonDesc(id: pokemonIndex, { [weak self] result in
+            switch result {
+                case .success(let desc):
+                    DispatchQueue.main.async {
+                        self?.pokemonDesc = desc
+                    }
+                case .failure(let error):
+                    self?.errorText = "Unable to retrieve Pokemon(Id: \(pokemonIndex)) Species Details!"
             }
         })
     }
@@ -86,16 +92,17 @@ class DetailViewModel: ObservableObject {
     }
     
     func getPokemonImageData(pokemonId: Int , completion: @escaping (UIImage?) -> Void ) {
-        useCase?.getPokemonImageData(pokemonId: pokemonId, completion: { imageData in
-            DispatchQueue.main.async {
-                completion(UIImage(data: imageData))
+        useCase?.getPokemonImageData(pokemonId: pokemonId, completion: { result in
+            switch result {
+                case .success(let imageData):
+                    DispatchQueue.main.async {
+                        completion(UIImage(data: imageData))
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        completion(UIImage(named: "placeHolder"))
+                    }
             }
-        })
-    }
-    
-    func getPokemonDetails(pokemonIndex: Int, completion: @escaping (PokemonDetailDomainModel?) -> Void) {
-        useCase?.getDetails(id: pokemonIndex, { details in
-            completion(details)
         })
     }
     

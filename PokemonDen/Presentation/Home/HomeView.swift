@@ -30,7 +30,7 @@ struct HomeView: View {
                                 NavigationLink {
                                     let id = homeVM.getPokemonIndex(pokemon: pokemon)
                                     
-                                    DetailView(pokemonDetail:  homeVM.listOfPokemonDetail[id].pokemonDetail, listOfPokemon: homeVM.filteredPokemon, listOfPokemonDetail: homeVM.getListOfPokemonDetails())
+                                    DetailView(pokemonDetail:  homeVM.listOfPokemonDetail[id].pokemonDetail)
                                 } label: {
                                     let id = homeVM.getPokemonIndex(pokemon: pokemon)
                             
@@ -55,6 +55,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(homeVM: HomeViewModel(useCase: HomeUseCase(repo: Repository(service: Services(client: RESTClient()), mapper: ListOfPokemonMapper()))))
+        HomeView(homeVM: HomeViewModel(useCase: HomeUseCase(repo: PokemonRepository(service: PokemonService(client: RESTClient())))))
     }
 }

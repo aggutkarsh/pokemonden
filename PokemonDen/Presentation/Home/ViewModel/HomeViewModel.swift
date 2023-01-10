@@ -20,6 +20,7 @@ class HomeViewModel: ObservableObject {
     @Published var listOfPokemonModel: ListOfPokemonDomainModel?
     @Published var listOfPokemonDetail = [ListOfPokemonDetailEntity]()
     @Published var searchText = ""
+    @Published var errorText = ""
     
     init(useCase: HomeUseCase){
         self.useCase = useCase
@@ -34,25 +35,34 @@ class HomeViewModel: ObservableObject {
             $0.name.starts(with: searchText.lowercased()) || $0.id == Int(searchText)
         })
 
-
         return filteredList
     }
     
     func getPokemonListModel() {
-        useCase?.getListOfPokemon({ [weak self] data in
-            DispatchQueue.main.async {
-                self?.listOfPokemonModel = data
-                data?.listOfPokemon.forEach({ pokemon in
-                    self?.getDetails(pokemonIndex: pokemon.id)
-                })
+        useCase?.getListOfPokemon({ [weak self] result in
+            switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        self?.listOfPokemonModel = data
+                        data?.listOfPokemon.forEach({ pokemon in
+                            self?.getDetails(pokemonIndex: pokemon.id)
+                        })
+                    }
+                case .failure(let error):
+                    self?.errorText = "Unable to fetch Pokemon(s) Data!"
             }
         })
     }
     
     func getDetails(pokemonIndex: Int) {
-        useCase?.getDetails(id: pokemonIndex, { details in
-            DispatchQueue.main.async {
-                self.listOfPokemonDetail.append(ListOfPokemonDetailEntity(id: pokemonIndex, pokemonDetail: details!, listOfType: []))
+        useCase?.getDetails(id: pokemonIndex, { result in
+            switch result {
+                case .success(let details):
+                    DispatchQueue.main.async {
+                        self.listOfPokemonDetail.append(ListOfPokemonDetailEntity(id: pokemonIndex, pokemonDetail: details!, listOfType: []))
+                    }
+                case .failure(let error):
+                    self.errorText = "Unable to retrieve Pokemon(Id: \(pokemonIndex)) Details!"
             }
         })
     }
@@ -79,9 +89,16 @@ class HomeViewModel: ObservableObject {
     }
     
     func getPokemonImageData(pokemonId: Int , completion: @escaping (UIImage?) -> Void ) {
-        useCase?.getPokemonImageData(pokemonId: pokemonId, completion: { imageData in
-            DispatchQueue.main.async {
-                completion(UIImage(data: imageData))
+        useCase?.getPokemonImageData(pokemonId: pokemonId, completion: { result in
+            switch result {
+                case .success(let imageData):
+                    DispatchQueue.main.async {
+                        completion(UIImage(data: imageData))
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        completion(UIImage(named: "placeHolder"))
+                    }
             }
         })
     }

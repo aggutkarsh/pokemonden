@@ -35,7 +35,7 @@ struct StatsView: View {
 struct StatsView_Previews: PreviewProvider {
     static var sampleData:PokemonDetailDomainModel =  Bundle.main.decode(file: "pokemonDetails.json")
     static var previews: some View {
-        StatsView(pokemonDetail: sampleData).environmentObject(DetailViewModel(useCase: DetailUseCase(repo: Repository(service: Services(client: RESTClient()), mapper: PokemonDetailMapper()))))
+        StatsView(pokemonDetail: sampleData).environmentObject(DetailViewModel(useCase: DetailUseCase(repo: PokemonRepository(service: PokemonService(client: RESTClient())))))
             .previewLayout(.sizeThatFits)
             .padding()
     }

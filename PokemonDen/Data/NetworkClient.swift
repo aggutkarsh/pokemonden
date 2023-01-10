@@ -9,10 +9,8 @@ import Foundation
 import SVGKit
 
 protocol NetworkClientInterface {
-    func fetchPokemonList<T: Decodable>(model: T.Type, completion:@escaping(T) -> (), failure:@escaping(Error) -> ())
-    func fetchPokemonDetails<T: Decodable>(id: Int, model: T.Type, completion:@escaping(T) -> (), failure:@escaping(Error) -> ())
-    func fetchPokemonDesc<T: Decodable>(id: Int, model: T.Type, completion:@escaping(T) -> (), failure:@escaping(Error) -> ())
-    func fetchPokemonImage(id: Int, completion:@escaping(Data) -> (), failure:@escaping(Error) -> ())
+    func fetchData<T: Decodable>(url: String, model: T.Type, completion:@escaping (Swift.Result<T, Error>) -> ())
+    func fetchImageData(url: String, completion:@escaping (Swift.Result<Data, Error>) -> ())
 }
 
 class SSLPinningManager: NSObject, URLSessionDelegate {
@@ -35,66 +33,50 @@ class SSLPinningManager: NSObject, URLSessionDelegate {
 }
 
 class RESTClient: NetworkClientInterface {
-    let baseUrl: String
-    let imageBaseUrl: String
+    private let baseUrl: String
+    private let imageBaseUrl: String
+    let sessionDelegate: URLSessionDelegate?
     
-    init() {
+    init(sessionDelegate: URLSessionDelegate? = nil) {
         self.baseUrl = Bundle.main.infoDictionary?["BaseURL"] as? String ?? ""
         self.imageBaseUrl = Bundle.main.infoDictionary?["ImageBaseURL"] as? String ?? ""
-    }
-    
-    func fetchPokemonList<T: Decodable>(model: T.Type, completion:@escaping(T) -> (), failure:@escaping(Error) -> ()) {
-        guard let url = URL(string: (self.baseUrl + "pokemon")) else { return }
-        fetchData(url: url, model: model, completion: completion, failure: failure)
-    }
-    
-    func fetchPokemonDetails<T: Decodable>(id: Int, model: T.Type, completion:@escaping(T) -> (), failure:@escaping(Error) -> ()) {
-        guard let url = URL(string: (self.baseUrl + "pokemon/\(id)/")) else { return }
-        fetchData(url: url, model: model, completion: completion, failure: failure)
-    }
-    
-    func fetchPokemonDesc<T: Decodable>(id: Int, model: T.Type, completion:@escaping(T) -> (), failure:@escaping(Error) -> ()) {
-        guard let url = URL(string: (self.baseUrl + "pokemon-species/\(id)")) else { return }
-        fetchData(url: url, model: model, completion: completion, failure: failure)
+        
+        self.sessionDelegate = sessionDelegate
     }
     
     // MARK :- Fetch Data from API.
-    func fetchData<T: Decodable>(url: URL, model: T.Type, completion:@escaping(T) -> (), failure:@escaping(Error) -> ()) {
-        let session = URLSession(configuration: .default, delegate: SSLPinningManager(isSSLPinningEnabled: true), delegateQueue: nil)
+    func fetchData<T: Decodable>(url: String, model: T.Type, completion:@escaping (Swift.Result<T, Error>) -> ()) {
+        guard let url = URL(string: (self.baseUrl + url)) else { return }
+        let session = URLSession(configuration: .default, delegate: self.sessionDelegate, delegateQueue: nil)
         session.dataTask(with: url) { (data, response, error) in
             guard let data = data else {
-                if let error = error { failure(error) }
+                if let error = error { completion(.failure(error)) }
                 return }
             do {
                 let serverData = try JSONDecoder().decode(T.self, from: data)
-                completion(serverData)
+                completion(.success(serverData))
             } catch {
-                failure(error)
+                completion(.failure(error))
             }
         }.resume()
     }
     
-    func fetchPokemonImage(id: Int, completion:@escaping(Data) -> (), failure:@escaping(Error) -> ()) {
-        let url = String(format:"sprites/master/sprites/pokemon/other/dream-world/%d.svg", id)
-        guard let url = URL(string: (self.imageBaseUrl + url)) else { return }
-        fetchImageData(url: url, completion: completion, failure: failure)
-    }
-    
     // MARK :- Fetch Image Data from image API.
-    func fetchImageData(url: URL, completion:@escaping(Data) -> (), failure:@escaping(Error) -> ()) {
-        let session = URLSession(configuration: .default, delegate: SSLPinningManager(isSSLPinningEnabled: true), delegateQueue: nil)
+    func fetchImageData(url: String, completion:@escaping (Swift.Result<Data, Error>) -> ()) {
+        guard let url = URL(string: (self.imageBaseUrl + url)) else { return }
+        let session = URLSession(configuration: .default, delegate: self.sessionDelegate, delegateQueue: nil)
         session.dataTask(with: url) { (data, response, error) in
             guard let imageData = data else {
-                if let error = error { failure(error) }
+                if let error = error { completion(.failure(error)) }
                 return
             }
             let receivedicon: SVGKImage = SVGKImage(data: imageData)
             
             if let image = receivedicon.uiImage,
                 let pngImageData =  image.pngData() {
-                completion(pngImageData)
+                completion(.success(pngImageData))
             } else {
-                completion(imageData)
+                completion(.success(imageData))
             }
         }.resume()
     }

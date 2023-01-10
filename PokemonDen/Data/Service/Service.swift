@@ -7,51 +7,56 @@
 
 import Foundation
 
-class Services: ServiceInterface {
+class PokemonService: ServiceInterface {
     let networkClient: NetworkClientInterface
     
     init(client: NetworkClientInterface) {
         self.networkClient = client
     }
     
-    func getListOfPokemon(_ completion:@escaping (ListOfPokemonDataModel) -> Void, failure:@escaping(Error) -> Void) {
-        networkClient.fetchPokemonList(model: ListOfPokemonDataModel.self) { data in
-            completion(data)
-            print(data)
-        } failure: { error in
-            failure(error)
-            print(error)
+    func getListOfPokemon(_ completion:@escaping (Swift.Result<ListOfPokemonDataModel, Error>) -> Void) {
+        networkClient.fetchData(url: "pokemon", model: ListOfPokemonDataModel.self) {
+            result in
+            switch result {
+                case .success(let data):
+                    completion(.success(data))
+                case .failure(let error):
+                    completion(.failure(error))
+            }
         }
     }
     
-    func getPokemonDetails(id: Int, _ completion:@escaping (PokemonDetailDataModel) -> Void, failure:@escaping(Error) -> Void) {
-        networkClient.fetchPokemonDetails(id: id, model: PokemonDetailDataModel.self) { data in
-               completion(data)
-               print(data)
-               
-           } failure: { error in
-               failure(error)
-               print(error)
-           }
-       }
+    func getPokemonDetails(id: Int, _ completion:@escaping (Swift.Result<PokemonDetailDataModel, Error>) -> Void) {
+        networkClient.fetchData(url: "pokemon/\(id)/", model: PokemonDetailDataModel.self) { result in
+            switch result {
+                case .success(let data):
+                    completion(.success(data))
+                case .failure(let error):
+                    completion(.failure(error))
+            }
+        }
+    }
     
-    func getPokemonDesc(id: Int, _ completion:@escaping (PokemonDescDataModel) -> Void, failure:@escaping(Error) -> Void) {
-        networkClient.fetchPokemonDesc(id: id, model: PokemonDescDataModel.self) { data in
-               completion(data)
-               print(data)
-               
-           } failure: { error in
-               failure(error)
-               print(error)
-           }
-       }
+    func getPokemonDesc(id: Int, _ completion:@escaping (Swift.Result<PokemonDescDataModel, Error>) -> Void) {
+        networkClient.fetchData(url: "pokemon-species/\(id)", model: PokemonDescDataModel.self) { result in
+            switch result {
+                case .success(let data):
+                    completion(.success(data))
+                case .failure(let error):
+                    completion(.failure(error))
+            }
+        }
+    }
     
-    func getPokemonImageData(_ pokemonId: Int, completion:@escaping (Data) -> Void, failure:@escaping(Error) -> Void) {
-        networkClient.fetchPokemonImage(id: pokemonId, completion: { data in
-            completion(data)
-        }, failure: { error in
-            failure(error)
-            print(error)
+    func getPokemonImageData(_ pokemonId: Int, completion:@escaping (Swift.Result<Data, Error>) -> Void) {
+        let url = String(format:"sprites/master/sprites/pokemon/other/dream-world/%d.svg", pokemonId)
+        networkClient.fetchImageData(url: url, completion: { result in
+            switch result {
+                case .success(let data):
+                    completion(.success(data))
+                case .failure(let error):
+                    completion(.failure(error))
+            }
         })
     }
 }

@@ -67,8 +67,6 @@
 		AC59C6DD29686BC300011886 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC59C6D729686BC300011886 /* ProgressBarView.swift */; };
 		AC59C6DF29686BCB00011886 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC59C6DE29686BCB00011886 /* DetailViewModel.swift */; };
 		AC59C6E129686BD300011886 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC59C6E029686BD300011886 /* DetailView.swift */; };
-		AC59C6E5296873AE00011886 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = AC59C6E4296873AE00011886 /* ViewInspector */; };
-		AC59C6E8296873FB00011886 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = AC59C6E7296873FB00011886 /* SnapshotTesting */; };
 		AC59C6ED2968745600011886 /* HeaderViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC59C6EA2968745600011886 /* HeaderViewTests.swift */; };
 		AC59C6EE2968745600011886 /* PokemonTypeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC59C6EB2968745600011886 /* PokemonTypeViewTests.swift */; };
 		AC59C6EF2968745600011886 /* HeadingAndSubHeadingViewSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC59C6EC2968745600011886 /* HeadingAndSubHeadingViewSnapshotTests.swift */; };
@@ -200,9 +198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC59C6E8296873FB00011886 /* SnapshotTesting in Frameworks */,
 				82EB2601533421290B93CDDB /* Pods_PokemonDen_PokemonDenUITests.framework in Frameworks */,
-				AC59C6E5296873AE00011886 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,8 +604,6 @@
 			);
 			name = PokemonDenUITests;
 			packageProductDependencies = (
-				AC59C6E4296873AE00011886 /* ViewInspector */,
-				AC59C6E7296873FB00011886 /* SnapshotTesting */,
 			);
 			productName = PokemonDenUITests;
 			productReference = AC59C6522968682A00011886 /* PokemonDenUITests.xctest */;
@@ -648,8 +642,6 @@
 			);
 			mainGroup = AC59C62F2968682800011886;
 			packageReferences = (
-				AC59C6E3296873AE00011886 /* XCRemoteSwiftPackageReference "ViewInspector" */,
-				AC59C6E6296873FB00011886 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = AC59C6392968682800011886 /* Products */;
 			projectDirPath = "";
@@ -1187,38 +1179,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		AC59C6E3296873AE00011886 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nalexn/ViewInspector";
-			requirement = {
-				kind = exactVersion;
-				version = 0.9.1;
-			};
-		};
-		AC59C6E6296873FB00011886 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
-			requirement = {
-				kind = exactVersion;
-				version = 1.9.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		AC59C6E4296873AE00011886 /* ViewInspector */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AC59C6E3296873AE00011886 /* XCRemoteSwiftPackageReference "ViewInspector" */;
-			productName = ViewInspector;
-		};
-		AC59C6E7296873FB00011886 /* SnapshotTesting */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AC59C6E6296873FB00011886 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
-			productName = SnapshotTesting;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AC59C6302968682800011886 /* Project object */;
 }
